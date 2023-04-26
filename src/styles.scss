@@ -5,10 +5,27 @@
 
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
-
+@import "primeicons/primeicons.css";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
 
 
 *, body {
     font-family: 'Poppins', sans-serif;
+}
+
+
+.bg-main{
+    background: #eb0000;
+}
+.text-main{
+    color: #eb0000;
+}
+
+.active-link{
+    color: #eb0000;
+}
+
+.active-link svg{
+    height: 2rem;
+    width: 2rem;
 }

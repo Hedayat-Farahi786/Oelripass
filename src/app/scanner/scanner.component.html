@@ -1,10 +1,16 @@
 <div #main class="scanner">
-    <p class="font-semibold text-lg uppercase">Scan the tool barcode</p>
-    <div class="card flex justify-content-center">
-        <p-button label="Submit"></p-button>
+    <p class="font-semibold text-lg uppercase text-center">Scan the tool barcode</p>
+    <div class="w-full h-[1px] bg-gray-400 my-3"></div>
+    <div class="relative">
+        <div class="scanner__video"></div>
+    <div *ngIf="loading" class="absolute top-0 bottom-0 right-0 left-0 flex flex-col items-center justify-center space-y-2 bg-white">
+        <i class="pi pi-spin pi-spinner text-main" style="font-size: 3rem"></i>
+        <p class="text-xs text-main">Loading...</p>
     </div>
-    <div class="scanner__video"></div>
     <div class="h-full flex items-end justify-center">
         <img src="../../assets/images/8122.png" alt="">
     </div>
+    </div>
 </div>
+
+<p-toast></p-toast>

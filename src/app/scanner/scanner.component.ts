@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BrowserMultiFormatReader } from '@zxing/library';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-scanner',
@@ -8,20 +10,23 @@ import { BrowserMultiFormatReader } from '@zxing/library';
 })
 export class ScannerComponent implements OnInit {
 
+
+  loading: boolean = true;
+
   result = '';
 
-  constructor() { }
+  constructor(private messageService: MessageService, private router: Router) { }
 
   ngOnInit(): void {
-      const codeReader = new BrowserMultiFormatReader();
-      codeReader
-        .listVideoInputDevices()
-        .then((videoInputDevices: MediaDeviceInfo[]) => {
-          navigator.mediaDevices.getUserMedia({
-            video: {
-              deviceId: videoInputDevices[0].deviceId
-            }
-          })
+    const codeReader = new BrowserMultiFormatReader();
+    codeReader
+      .listVideoInputDevices()
+      .then((videoInputDevices: MediaDeviceInfo[]) => {
+        navigator.mediaDevices.getUserMedia({
+          video: {
+            deviceId: videoInputDevices[0].deviceId
+          }
+        })
           .then((stream: MediaStream) => {
             const videoElement = document.createElement('video');
             videoElement.srcObject = stream;
@@ -31,19 +36,27 @@ export class ScannerComponent implements OnInit {
             videoElement.setAttribute('class', 'rounded-md my-5');
             videoElement.classList.add('video_output')
             document.querySelector('.scanner__video')?.appendChild(videoElement);
-  
+            this.loading = false;
+
             codeReader.decodeFromVideoDevice(
               '',
               videoElement,
               (result: any) => {
                 if (result !== null) {
-                  this.result = result.getText();
+                  this.router.navigate(['/tool', result.getText()]);
                 }
               }
             );
           });
-        })
-        .catch((err: any) => console.error(err));
+      })
+      .catch((err: any) => console.error(err));
+  }
+
+  addSingle() {
+    this.messageService.add({ severity: 'success', summary: 'Service Message', detail: 'Via MessageService', sticky: true });
+    setTimeout(() => {
+        this.messageService.clear();
+    }, 2000);
   }
 
 }
