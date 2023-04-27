@@ -33,7 +33,7 @@ export class ScannerComponent implements OnInit {
             videoElement.setAttribute('autoplay', 'true');
             videoElement.setAttribute('muted', 'true');
             videoElement.setAttribute('playsinline', 'true');
-            videoElement.setAttribute('class', 'rounded-md my-5');
+            videoElement.setAttribute('class', 'rounded-md my-5 h-60 w-full');
             videoElement.classList.add('video_output')
             document.querySelector('.scanner__video')?.appendChild(videoElement);
             this.loading = false;
